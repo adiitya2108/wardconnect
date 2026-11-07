@@ -1,0 +1,372 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict x9a0zXRRgu8VlYlAZPKrptHodfIFwBpRq1pCxVaf6LaocH0CXOVLZHZlgupgf6S
+
+-- Dumped from database version 18.4
+-- Dumped by pg_dump version 18.4
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: admin; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.admin (
+    admin_id character varying(20) NOT NULL,
+    name character varying(50),
+    email character varying(50),
+    password character varying(100)
+);
+
+
+ALTER TABLE public.admin OWNER TO postgres;
+
+--
+-- Name: complaint; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.complaint (
+    complaint_id character varying(20) NOT NULL,
+    user_id character varying(20),
+    ward_id character varying(20),
+    category character varying(30),
+    title character varying(100),
+    description text,
+    photo character varying(250),
+    latitude numeric(10,7),
+    longitude numeric(10,7),
+    complaint_date timestamp without time zone,
+    status character varying(20),
+    resolution_proof character varying(250),
+    resolution_remark text,
+    resolution_date date
+);
+
+
+ALTER TABLE public.complaint OWNER TO postgres;
+
+--
+-- Name: corporator; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.corporator (
+    corporator_id character varying(20) NOT NULL,
+    admin_id character varying(20),
+    name character varying(50),
+    contact character varying(11),
+    email character varying(50),
+    ward_id character varying(20),
+    role character varying(20)
+);
+
+
+ALTER TABLE public.corporator OWNER TO postgres;
+
+--
+-- Name: feedback; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.feedback (
+    feedback_id character varying(20) NOT NULL,
+    complaint_id character varying(20),
+    user_id character varying(20),
+    rating integer,
+    comment text,
+    feedback_date date
+);
+
+
+ALTER TABLE public.feedback OWNER TO postgres;
+
+--
+-- Name: resident; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.resident (
+    user_id character varying(20) NOT NULL,
+    full_name character varying(50),
+    mobile character varying(11),
+    email character varying(50),
+    pasword character varying(100),
+    ward_id character varying(20),
+    address text,
+    pincode character varying(10),
+    user_type character varying(20)
+);
+
+
+ALTER TABLE public.resident OWNER TO postgres;
+
+--
+-- Name: verification; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.verification (
+    verification_id character varying(20) NOT NULL,
+    user_id character varying(20),
+    doc_type character varying(50),
+    doc_number character varying(50),
+    doc_photo character varying(250),
+    status character varying(20),
+    verified_by character varying(20),
+    verified_date date,
+    rejection_reason text
+);
+
+
+ALTER TABLE public.verification OWNER TO postgres;
+
+--
+-- Name: ward; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ward (
+    ward_id character varying(20) NOT NULL,
+    ward_no integer,
+    ward_name character varying(50),
+    area character varying(100),
+    pincode character varying(10),
+    corporator_id character varying(20)
+);
+
+
+ALTER TABLE public.ward OWNER TO postgres;
+
+--
+-- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.admin (admin_id, name, email, password) FROM stdin;
+\.
+
+
+--
+-- Data for Name: complaint; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.complaint (complaint_id, user_id, ward_id, category, title, description, photo, latitude, longitude, complaint_date, status, resolution_proof, resolution_remark, resolution_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: corporator; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.corporator (corporator_id, admin_id, name, contact, email, ward_id, role) FROM stdin;
+\.
+
+
+--
+-- Data for Name: feedback; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.feedback (feedback_id, complaint_id, user_id, rating, comment, feedback_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: resident; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.resident (user_id, full_name, mobile, email, pasword, ward_id, address, pincode, user_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: verification; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.verification (verification_id, user_id, doc_type, doc_number, doc_photo, status, verified_by, verified_date, rejection_reason) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ward; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ward (ward_id, ward_no, ward_name, area, pincode, corporator_id) FROM stdin;
+\.
+
+
+--
+-- Name: admin admin_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.admin
+    ADD CONSTRAINT admin_email_key UNIQUE (email);
+
+
+--
+-- Name: admin admin_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.admin
+    ADD CONSTRAINT admin_pkey PRIMARY KEY (admin_id);
+
+
+--
+-- Name: complaint complaint_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.complaint
+    ADD CONSTRAINT complaint_pkey PRIMARY KEY (complaint_id);
+
+
+--
+-- Name: corporator corporator_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.corporator
+    ADD CONSTRAINT corporator_pkey PRIMARY KEY (corporator_id);
+
+
+--
+-- Name: feedback feedback_complaint_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT feedback_complaint_id_key UNIQUE (complaint_id);
+
+
+--
+-- Name: feedback feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT feedback_pkey PRIMARY KEY (feedback_id);
+
+
+--
+-- Name: resident resident_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.resident
+    ADD CONSTRAINT resident_email_key UNIQUE (email);
+
+
+--
+-- Name: resident resident_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.resident
+    ADD CONSTRAINT resident_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: verification verification_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.verification
+    ADD CONSTRAINT verification_pkey PRIMARY KEY (verification_id);
+
+
+--
+-- Name: ward ward_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ward
+    ADD CONSTRAINT ward_pkey PRIMARY KEY (ward_id);
+
+
+--
+-- Name: ward ward_ward_no_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ward
+    ADD CONSTRAINT ward_ward_no_key UNIQUE (ward_no);
+
+
+--
+-- Name: complaint complaint_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.complaint
+    ADD CONSTRAINT complaint_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.resident(user_id);
+
+
+--
+-- Name: complaint complaint_ward_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.complaint
+    ADD CONSTRAINT complaint_ward_id_fkey FOREIGN KEY (ward_id) REFERENCES public.ward(ward_id);
+
+
+--
+-- Name: corporator corporator_admin_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.corporator
+    ADD CONSTRAINT corporator_admin_id_fkey FOREIGN KEY (admin_id) REFERENCES public.admin(admin_id);
+
+
+--
+-- Name: corporator corporator_ward_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.corporator
+    ADD CONSTRAINT corporator_ward_id_fkey FOREIGN KEY (ward_id) REFERENCES public.ward(ward_id);
+
+
+--
+-- Name: feedback feedback_complaint_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT feedback_complaint_id_fkey FOREIGN KEY (complaint_id) REFERENCES public.complaint(complaint_id);
+
+
+--
+-- Name: feedback feedback_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT feedback_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.resident(user_id);
+
+
+--
+-- Name: resident resident_ward_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.resident
+    ADD CONSTRAINT resident_ward_id_fkey FOREIGN KEY (ward_id) REFERENCES public.ward(ward_id);
+
+
+--
+-- Name: verification verification_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.verification
+    ADD CONSTRAINT verification_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.resident(user_id);
+
+
+--
+-- Name: ward ward_corporator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ward
+    ADD CONSTRAINT ward_corporator_id_fkey FOREIGN KEY (corporator_id) REFERENCES public.corporator(corporator_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict x9a0zXRRgu8VlYlAZPKrptHodfIFwBpRq1pCxVaf6LaocH0CXOVLZHZlgupgf6S
+

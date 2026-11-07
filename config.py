@@ -1,0 +1,5 @@
+DB_HOST = "localhost"
+DB_NAME = "wardconnect"
+DB_USER = "postgres"
+DB_PASSWORD = "#Aditya2108"
+DB_PORT = "5432"

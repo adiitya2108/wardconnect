@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Register(WardConnect)</title>
+</head>
+<body>
+			<h1>Register - WardConnect</h1>
+			<form method="POST" action="/register">
+				Full Name : <input type="text" name="full_name"  required> <br><br>	
+				Mobile : <input type="text" name="mobile" required><br><br>	
+				Email : <input type="email" name="email" required><br><br>	
+				Password : <input type="password" name="password" required><br><br>	
+				Ward ID : <input type="text" name="ward_id" placeholder="e.g. W07" required><br><br>	
+				Address : <input type="text" name="address" required><br><br>	
+				Pincode : <input type="text" name="pincode" required><br><br>	
+				User Type :
+					<select name="user_type">
+						<option value="Permanent">Permanent</option>
+						<option value="Temporary">Temporary</option>
+					</select> <br><br>	
+
+					<button type="submit">Register</button>
+				</form>
+
+				<p><a href="/">Back To Home</p>
+</body>
+</html>
