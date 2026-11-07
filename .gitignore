@@ -1,0 +1,22 @@
+# Python bytecode (Automatically generated)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments (Local environment folders)
+.venv/
+venv/
+ENV/
+env/
+
+# Operating System files
+Thumbs.db
+.DS_Store
+
+# IDE / Editor configurations
+.vscode/
+.idea/
+
+# Sensitive data / Local environment variables
+.env
+*.log
