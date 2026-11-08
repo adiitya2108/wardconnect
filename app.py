@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import psycopg2
 from config import DB_HOST , DB_NAME , DB_USER, DB_PASSWORD , DB_PORT
 import uuid
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -108,6 +109,63 @@ def verification():
 		return "Verification Submitted ! Status : Pending, <a href='/'> Back to Home </a>"
 	return render_template("verification.html")
  
+
+@app.route("/complaint",methods=["GET","POST"])
+def complaint():
+	if "user_id" not in session:
+		return redirect("/login")
+
+	if request.method == "POST":
+		user_id = session["user_id"]
+		category = request.form["category"]
+		title = request.form["title"]
+		description = request.form["description"]
+		address = request.form.get("address") or None 
+
+		lat = request.form.get("latitude") or None
+		lon = request.form.get("longitude") or None
+		latitude = float(lat) if lat else None
+		longitude = float(lon) if lon else None
+		if not address and not latitude and not longitude:
+			return "Please Provide either Auto GPS or Manual Address <a href ='/complaint' >Try Agian</a>"
+
+		conn = get_db()
+		cur = conn.cursor()
+		cur.execute("SELECT ward_id FROM resident WHERE user_id = %s",(user_id,))
+		row = cur.fetchone()
+		ward_id = row[0] if row else None
+
+		file = request.files["photo"]
+		filename = uuid.uuid4().hex[:6] + "_" + secure_filename(file.filename)
+		file.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
+		photo = "uploads/" + 	 filename
+
+		complaint_id = "WC" + uuid.uuid4().hex[:6].upper()
+
+		cur.execute("INSERT INTO complaint (complaint_id,user_id,ward_id,category,title,description,photo,latitude,longitude,complaint_date,status, address) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+								(complaint_id,user_id,ward_id,category,title,description,photo,latitude,longitude,datetime.now(),"Pending", address))
+		conn.commit()
+		cur.close()
+		conn.close()
+		return "complaint Submitted ! Status : Pending . <a href='/'> Back to home </a>"
+
+	return render_template("post_complaint.html")
+
+@app.route("/my_complaints")
+def my_complaints():
+	if "user_id" not in session:
+		return redirect("/login")
+
+	user_id = session["user_id"]
+
+	conn = get_db()
+	cur = conn.cursor()
+	cur.execute("SELECT complaint_id,title,category,status,complaint_date FROM complaint WHERE  	user_id = %s ORDER BY  complaint_date DESC", (user_id,))
+	complaints = cur.fetchall()
+	cur.close()
+	conn.close()
+
+	return render_template("my_complaints.html", complaints=complaints ) 
 
 if __name__ == "__main__":
 	app.run(debug=True)

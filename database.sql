@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict x9a0zXRRgu8VlYlAZPKrptHodfIFwBpRq1pCxVaf6LaocH0CXOVLZHZlgupgf6S
+\restrict VyTiLZ2PCViFzn5hE6T2KxAaD80sry05g8hOrZUaytP7KUHmg0zaCNbh0SRDVzU
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -55,7 +55,8 @@ CREATE TABLE public.complaint (
     status character varying(20),
     resolution_proof character varying(250),
     resolution_remark text,
-    resolution_date date
+    resolution_date date,
+    address text
 );
 
 
@@ -103,7 +104,7 @@ CREATE TABLE public.resident (
     full_name character varying(50),
     mobile character varying(11),
     email character varying(50),
-    pasword character varying(100),
+    password character varying(300),
     ward_id character varying(20),
     address text,
     pincode character varying(10),
@@ -160,7 +161,8 @@ COPY public.admin (admin_id, name, email, password) FROM stdin;
 -- Data for Name: complaint; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.complaint (complaint_id, user_id, ward_id, category, title, description, photo, latitude, longitude, complaint_date, status, resolution_proof, resolution_remark, resolution_date) FROM stdin;
+COPY public.complaint (complaint_id, user_id, ward_id, category, title, description, photo, latitude, longitude, complaint_date, status, resolution_proof, resolution_remark, resolution_date, address) FROM stdin;
+WC77B2D5	UB7DAAE	W05	Road	no roads	0 roads in town	uploads/2c8757_Capture6nov2.PNG	18.5377970	73.8517458	2026-11-08 11:52:38.915112	Pending	\N	\N	\N	\N
 \.
 
 
@@ -184,7 +186,8 @@ COPY public.feedback (feedback_id, complaint_id, user_id, rating, comment, feedb
 -- Data for Name: resident; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.resident (user_id, full_name, mobile, email, pasword, ward_id, address, pincode, user_type) FROM stdin;
+COPY public.resident (user_id, full_name, mobile, email, password, ward_id, address, pincode, user_type) FROM stdin;
+UB7DAAE	Aditya Prakash Ankush	8010167604	adityaankush002@gmail.com	scrypt:32768:8:1$QfFh4uKiMUYpi46O$edd0d91b56bc4135caf2037163e58d6d7642a3febf2321bfad2087af8dc4896d7a6d10270e05c15a762581b8080eeaaac646fdf4c38287359c7809e33d7f4d8b	W05	8/247 shivajinagar pune	411003	Permanent
 \.
 
 
@@ -193,6 +196,7 @@ COPY public.resident (user_id, full_name, mobile, email, pasword, ward_id, addre
 --
 
 COPY public.verification (verification_id, user_id, doc_type, doc_number, doc_photo, status, verified_by, verified_date, rejection_reason) FROM stdin;
+V7998E7	UB7DAAE	Aadhaar	758966547112	uploads/062c60_pexels-therato-17684642.jpg	Pending	\N	\N	\N
 \.
 
 
@@ -201,6 +205,7 @@ COPY public.verification (verification_id, user_id, doc_type, doc_number, doc_ph
 --
 
 COPY public.ward (ward_id, ward_no, ward_name, area, pincode, corporator_id) FROM stdin;
+W05	5	Kothrud	Kothrud Area	411038	\N
 \.
 
 
@@ -368,5 +373,5 @@ ALTER TABLE ONLY public.ward
 -- PostgreSQL database dump complete
 --
 
-\unrestrict x9a0zXRRgu8VlYlAZPKrptHodfIFwBpRq1pCxVaf6LaocH0CXOVLZHZlgupgf6S
+\unrestrict VyTiLZ2PCViFzn5hE6T2KxAaD80sry05g8hOrZUaytP7KUHmg0zaCNbh0SRDVzU
 

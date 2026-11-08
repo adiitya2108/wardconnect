@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Post Complaint</title>
+</head>
+<body>
+				<h1>Post Complaint</h1>
+
+				<form method="POST" action="/complaint" enctype="multipart/form-data">
+					Category : 
+						<select name="category">
+							<option value="Road">Road</option>
+							<option value="Water">Water</option>
+							<option value="Streetlight">Streetlight</option>
+							<option value="Garbage">Garbage</option>
+							<option value="Drainage">Drainage</option>
+							<option value="Other">Other</option>
+						</select> <br><br>
+
+						Title :  <input type="text" name="title" required><br><br>
+						Descirption : <br>
+						<textarea name="description" rows="4" cols="40" required></textarea><br><br>
+						Address / Landmark : <input type="text" name="address" placeholder="In Case Of GPS Failure"><br><br>
+						Photo : <input type="file" name="photo" required><br><br>
+						Latitude : <input type="text" name="latitude" id="lat" placeholder="Auto GPS"><br><br>
+						Longitude : <input type="text" name="longitude" id="lon" placeholder="Auto GPS"><br><br>
+						<button type="button" onclick="getLocation()">Get My Location</button>
+						<button type="submit"> Submit Complaint</button>
+							</form>
+
+							<script>
+									function getLocation() {
+										if(navigator.geolocation){
+											navigator.geolocation.getCurrentPosition(function(pos){
+												document.getElementById("lat").value = pos.coords.latitude;
+												document.getElementById("lon").value = pos.coords.longitude;
+
+
+											});
+
+										} else {
+											alert("Can't get geolocation  type address manually!!!")
+										}
+									}
+							</script>
+
+					<p><a href="/">Back To Home</p>
+									
+</body>
+</html>
