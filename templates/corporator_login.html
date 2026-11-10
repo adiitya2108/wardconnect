@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="max-width: 450px; margin: auto;">
+    <h2 class="text-center">Corporator Login</h2>
+    <form method="POST" action="/corporator_login">
+        Email: <input type="email" name="email" class="form-control" required><br>
+        Password: <input type="password" name="password" class="form-control" required><br>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+</div>
+{% endblock %}

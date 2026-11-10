@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict VyTiLZ2PCViFzn5hE6T2KxAaD80sry05g8hOrZUaytP7KUHmg0zaCNbh0SRDVzU
+\restrict vJUgXBMCapHqr8yYWCYQNbgQ3CrpcNIZnmkKFsdxRFgUmUNflk4BU3xwYIXIXWZ
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -31,7 +31,7 @@ CREATE TABLE public.admin (
     admin_id character varying(20) NOT NULL,
     name character varying(50),
     email character varying(50),
-    password character varying(100)
+    password character varying(255)
 );
 
 
@@ -70,10 +70,11 @@ CREATE TABLE public.corporator (
     corporator_id character varying(20) NOT NULL,
     admin_id character varying(20),
     name character varying(50),
-    contact character varying(11),
+    mobile character varying(11),
     email character varying(50),
     ward_id character varying(20),
-    role character varying(20)
+    role character varying(20),
+    password character varying(255)
 );
 
 
@@ -154,6 +155,7 @@ ALTER TABLE public.ward OWNER TO postgres;
 --
 
 COPY public.admin (admin_id, name, email, password) FROM stdin;
+ADM001	Super Admin	admin@wardconnect.com	scrypt:32768:8:1$Qofd9ROWYg228EeT$bf1db3fae86bcd52bab56d5c6594fa8676b0f61dc0ac03ad0ecce4be5e7f1aa2e056a72771682da5f7325db32b5d3c9cac50a96902728eceee4ba00e926f60a4
 \.
 
 
@@ -162,7 +164,7 @@ COPY public.admin (admin_id, name, email, password) FROM stdin;
 --
 
 COPY public.complaint (complaint_id, user_id, ward_id, category, title, description, photo, latitude, longitude, complaint_date, status, resolution_proof, resolution_remark, resolution_date, address) FROM stdin;
-WC77B2D5	UB7DAAE	W05	Road	no roads	0 roads in town	uploads/2c8757_Capture6nov2.PNG	18.5377970	73.8517458	2026-11-08 11:52:38.915112	Pending	\N	\N	\N	\N
+WC77B2D5	UB7DAAE	W05	Road	no roads	0 roads in town	uploads/2c8757_Capture6nov2.PNG	18.5377970	73.8517458	2026-11-08 11:52:38.915112	Resolved	\N	who cares	2026-11-09	\N
 \.
 
 
@@ -170,7 +172,9 @@ WC77B2D5	UB7DAAE	W05	Road	no roads	0 roads in town	uploads/2c8757_Capture6nov2.P
 -- Data for Name: corporator; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.corporator (corporator_id, admin_id, name, contact, email, ward_id, role) FROM stdin;
+COPY public.corporator (corporator_id, admin_id, name, mobile, email, ward_id, role, password) FROM stdin;
+CORP101	ADM001	XYZ Corporator	9876543210	corrupted@ward.com	W05	Corporator	scrypt:32768:8:1$f5KOXE2saRwA7DeN$c435967c2d63b476c780cf2b9131b28d2889ac2dcd536f0e58a470b044411ced016e4311c4d7b2a539d24a08715bdd4fcd0494362fbe53f52f42cdbc76952b2c
+CORP102	ADM001	P sharma	9876500000	p@ward.com	W06	Corporator	scrypt:32768:8:1$6RZVNNCPyifb4KvR$289c0c39d60713b4b4300543d66c6fe4ce2c9d989ccccaa1a978a688d16fe55b6cf22553715d3ab36b425a5c03b07cff65d5b34e3c41716e145f22792e4cc4c9
 \.
 
 
@@ -179,6 +183,7 @@ COPY public.corporator (corporator_id, admin_id, name, contact, email, ward_id, 
 --
 
 COPY public.feedback (feedback_id, complaint_id, user_id, rating, comment, feedback_date) FROM stdin;
+F75D462	WC77B2D5	UB7DAAE	1	fake 	2026-11-09
 \.
 
 
@@ -196,7 +201,7 @@ UB7DAAE	Aditya Prakash Ankush	8010167604	adityaankush002@gmail.com	scrypt:32768:
 --
 
 COPY public.verification (verification_id, user_id, doc_type, doc_number, doc_photo, status, verified_by, verified_date, rejection_reason) FROM stdin;
-V7998E7	UB7DAAE	Aadhaar	758966547112	uploads/062c60_pexels-therato-17684642.jpg	Pending	\N	\N	\N
+V7998E7	UB7DAAE	Aadhaar	758966547112	uploads/062c60_pexels-therato-17684642.jpg	Approved	CORP101	2026-11-09	\N
 \.
 
 
@@ -206,6 +211,7 @@ V7998E7	UB7DAAE	Aadhaar	758966547112	uploads/062c60_pexels-therato-17684642.jpg	
 
 COPY public.ward (ward_id, ward_no, ward_name, area, pincode, corporator_id) FROM stdin;
 W05	5	Kothrud	Kothrud Area	411038	\N
+W06	\N	Kothrud West	Kothrud city xy	411009	\N
 \.
 
 
@@ -373,5 +379,5 @@ ALTER TABLE ONLY public.ward
 -- PostgreSQL database dump complete
 --
 
-\unrestrict VyTiLZ2PCViFzn5hE6T2KxAaD80sry05g8hOrZUaytP7KUHmg0zaCNbh0SRDVzU
+\unrestrict vJUgXBMCapHqr8yYWCYQNbgQ3CrpcNIZnmkKFsdxRFgUmUNflk4BU3xwYIXIXWZ
 

@@ -1,0 +1,81 @@
+/* WardConnect - Modern Black Aesthetic */
+
+body {
+    background-color: #F5F5F5;
+    font-family: 'Inter', sans-serif;
+    color: #1A1A1A;
+}
+
+/* Navbar - Soft Black */
+.navbar {
+    background-color: #1A1A1A !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.navbar-brand, .nav-link {
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: #BDBDBD !important;
+}
+
+/* Cards - White, Soft Shadow, Modern */
+.card {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    padding: 28px;
+    margin-bottom: 20px;
+}
+
+/* Buttons - Black Modern */
+.btn-primary {
+    background-color: #212121 !important;
+    border-color: #212121 !important;
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-weight: 600;
+    color: #FFFFFF !important;
+}
+
+.btn-primary:hover {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+/* Inputs - Light, Clean */
+.form-control {
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    padding: 10px;
+    background: #FAFAFA;
+}
+
+.form-control:focus {
+    border-color: #212121;
+    box-shadow: none;
+    background: #FFFFFF;
+}
+
+/* Status Badge - Status B (Same colour for all) */
+.status-badge {
+    background-color: #EEEEEE;
+    color: #212121;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Links */
+a {
+    color: #212121;
+    text-decoration: none;
+    font-weight: 500;
+}
+a:hover {
+    color: #000000;
+}

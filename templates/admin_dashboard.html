@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Admin Dashboard</h2>
+        <div>
+            <a href="/add_ward" class="btn btn-primary">+ Add Ward</a>
+            <a href="/add_corporator" class="btn btn-primary">+ Add Corporator</a>
+        </div>
+    </div>
+
+    <hr>
+
+    <h4>All Complaints</h4>
+    <table class="table table-striped">
+        <tr><th>ID</th><th>Title</th><th>Category</th><th>Status</th><th>Action</th></tr>
+        {% for c in complaints %}
+        <tr>
+            <td>{{ c[0] }}</td>
+            <td>{{ c[1] }}</td>
+            <td>{{ c[2] }}</td>
+            <td><span class="status-badge">{{ c[3] }}</span></td>
+            <td><a href="/update_status/{{ c[0] }}" class="btn btn-primary btn-sm">Manage</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

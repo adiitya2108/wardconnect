@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="max-width: 500px; margin: auto;">
+    <h2 class="text-center">Add Ward</h2>
+    <form method="POST" action="/add_ward">
+        Ward ID: <input type="text" name="ward_id" class="form-control" placeholder="W05" required><br>
+        Ward Name: <input type="text" name="ward_name" class="form-control" placeholder="e.g. Baner" required><br>
+        Area: <input type="text" name="area" class="form-control"><br>
+        Pincode: <input type="text" name="pincode" class="form-control"><br>
+        <button type="submit" class="btn btn-primary w-100">Add Ward</button>
+    </form>
+    <p class="text-center mt-3"><a href="/admin_dashboard">Back to Dashboard</a></p>
+</div>
+{% endblock %}

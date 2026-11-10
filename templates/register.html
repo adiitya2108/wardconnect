@@ -1,29 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Register(WardConnect)</title>
-</head>
-<body>
-			<h1>Register - WardConnect</h1>
-			<form method="POST" action="/register">
-				Full Name : <input type="text" name="full_name"  required> <br><br>	
-				Mobile : <input type="text" name="mobile" required><br><br>	
-				Email : <input type="email" name="email" required><br><br>	
-				Password : <input type="password" name="password" required><br><br>	
-				Ward ID : <input type="text" name="ward_id" placeholder="e.g. W07" required><br><br>	
-				Address : <input type="text" name="address" required><br><br>	
-				Pincode : <input type="text" name="pincode" required><br><br>	
-				User Type :
-					<select name="user_type">
-						<option value="Permanent">Permanent</option>
-						<option value="Temporary">Temporary</option>
-					</select> <br><br>	
+{% extends "base.html" %}
 
-					<button type="submit">Register</button>
-				</form>
-
-				<p><a href="/">Back To Home</p>
-</body>
-</html>
+{% block content %}
+<div class="card" style="max-width: 600px; margin: auto;">
+    <h2 class="text-center">Register</h2>
+    <form method="POST" action="/register">
+        Full Name: <input type="text" name="full_name" class="form-control" required><br>
+        Mobile: <input type="text" name="mobile" class="form-control" required><br>
+        Email: <input type="email" name="email" class="form-control" required><br>
+        Password: <input type="password" name="password" class="form-control" required><br>
+        Ward ID: <input type="text" name="ward_id" class="form-control" placeholder="W05" required><br>
+        Address: <input type="text" name="address" class="form-control"><br>
+        Pincode: <input type="text" name="pincode" class="form-control"><br>
+        User Type:
+        <select name="user_type" class="form-control">
+            <option value="Permanent">Permanent</option>
+            <option value="Temporary">Temporary</option>
+        </select><br>
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+    <p class="text-center mt-3"><a href="/login">Already have account? Login</a></p>
+</div>
+{% endblock %}
